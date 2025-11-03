@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="./font/fontawesome-free-7.1.0-web/fontawesome-free-7.1.0-web/css/all.min.css">
+    <link rel="stylesheet" href="./book-management.css">
+    <link rel="stylesheet" href="./base.css">
+  </head>
+
+  <body>
+    <img src="./images/logo.jpg">
+    <img class="background" src="./images/background.jpg">
+
+    <nav class="navbar">
+      <a class="navbar__item navbar__item-separate" href="./books.html">Books</a>
+      <a class="navbar__item" href="">Book Management</a>
+    </nav>
+
+    <div class="text"> 
+      <p>Your reading journey starts here.</p>
+      <p class="name">PRO LIB PORTAL</p>
+      <p>Discover and borrow your favourite</p>
+      <p class="text__line">books anytime.</p><br>
+    </div>
+
+    <button class="searchbox">
+      <input type="text" class="searchbox-input" placeholder="Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    <div class="user-menu">
+      <span class="user-icon"><i class="fa-solid fa-circle-user fa-xl"></i></span>
+      <button class="username">Thùy Tiên<span class="arrow">▼</span></button>
+      
+      <div class="dropdown">
+        <a href="">Profile</a>
+        <a href="">Logout</a>
+      </div>
+    </div>
+      
+    <div class="book-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Cover</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Detail</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="./images/book-image.jpg" alt="" class="cover" /></td>
+          <td>Doraemon tập 14</td>
+          <td>FUJIKO F FUJIO</td>
+          <td class="status available">Available</td>
+          <td><a href="./book-details2.html">Detail</a></td>
+          <td><a href="./action.html">Action</a></td>
+        </tr>
+        <tr>
+          <td><img src="./images/z7163611882577_c5fbfcef2d3c8b0618b0cafd48f4dc22.jpg" alt="" class="cover" /></td>
+          <td>Doraemon tập 4</td>
+          <td>FUJIKO F FUJIO</td>
+          <td class="status unavailable">Unavailable</td>
+          <td><a href="#">Detail</a></td>
+          <td><a href="#">Action</a></td>
+        </tr>
+        <tr>
+          <td><img src="./images/z7163611966186_c4693ccd99089bfddf50b764b01009a4.jpg" alt="" class="cover" /></td>
+          <td>Doraemon tập 14</td>
+          <td>FUJIKO F FUJIO</td>
+          <td class="status available">Available</td>
+          <td><a href="#">Detail</a></td>
+          <td><a href="#">Action</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-btn">+ Add a new</button>
+  </body>
+
+</html>
