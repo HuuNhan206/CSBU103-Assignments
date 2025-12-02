@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery Viewer</title>
+    <link rel="stylesheet" href="photo gallery viewer.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Photo Gallery</h1>
+            <p>Click on any image to view in full size</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <button id="addImageBtn" class="btn btn-add">
+                <span>+</span> Add Image
+            </button>
+            <div id="addImageForm" class="add-image-form hidden">
+                <input type="text" id="imageUrl" placeholder="Enter image URL">
+                <input type="text" id="imageTitle" placeholder="Enter image title">
+                <div class="form-buttons">
+                    <button id="submitImage" class="btn btn-submit">Add</button>
+                    <button id="cancelAdd" class="btn btn-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery">
+            
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Mountain Sunrise" loading="lazy">
+                <div class="overlay">
+                    <span>Mountain Sunrise</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Lake Louise" loading="lazy">
+                <div class="overlay">
+                    <span>Lake Louise</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800" alt="Autumn Forest" loading="lazy">
+                <div class="overlay">
+                    <span>Autumn Forest</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800" alt="Canyon Sunset" loading="lazy">
+                <div class="overlay">
+                    <span>Canyon Sunset</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800" alt="Tropical Beach" loading="lazy">
+                <div class="overlay">
+                    <span>Tropical Beach</span>
+                </div>
+            </div>
+
+            
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800" alt="Waterfall Paradise" loading="lazy">
+                <div class="overlay">
+                    <span>Waterfall Paradise</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=800" alt="Northern Lights" loading="lazy">
+                <div class="overlay">
+                    <span>Northern Lights</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800" alt="Green Valley" loading="lazy">
+                <div class="overlay">
+                    <span>Green Valley</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800" alt="Coastal Rocks" loading="lazy">
+                <div class="overlay">
+                    <span>Coastal Rocks</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <button class="delete-btn" title="Delete image">&times;</button>
+                <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=800" alt="Bamboo Forest" loading="lazy">
+                <div class="overlay">
+                    <span>Bamboo Forest</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <span class="prev">&#10094;</span>
+        <span class="next">&#10095;</span>
+        <img class="lightbox-content" id="lightbox-img" alt="">
+        <div class="caption" id="caption"></div>
+        <div class="image-counter" id="counter"></div>
+    </div>
+
+    <script src="photo gallery viewer.js"></script>
+</body>
+</html>
