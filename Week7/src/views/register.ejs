@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lập trình ứng dụng Web - Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link href="public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="public/js/jquery.min.js"></script>
+  <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .form-control.is-invalid {
+      border-color: #dc3545;
+    }
+    .form-control.is-valid {
+      border-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Register</h2>
+        <div class="mb-3">
+          <form id="registerForm" method="POST" action="/register">
+            <div class="form-floating mb-3">
+              <input class="form-control" type="text" id="username" name="username" placeholder="name@example.com">
+              <label class="form-label" for="username">Username (Email)</label>
+              <div id="usernameError" class="error"></div>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="password" id="password" name="password" placeholder="Password">
+              <label class="form-label" for="password">Password</label>
+              <div id="passwordError" class="error"></div>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+              <label class="form-label" for="confirmPassword">Re-confirm Password</label>
+              <div id="confirmPasswordError" class="error"></div>
+            </div>
+            <br>
+            <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+              <div class="alert alert-danger" role="alert">
+                <p><%= errorMessage %></p>
+              </div>
+            <% } %>
+            <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+              <div class="alert alert-success" role="alert">
+                <p><%= successMessage %></p>
+              </div>
+            <% } %>
+            <input class="btn btn-primary w-100" type="submit" value="Register">
+          </form>
+          <div class="text-center mt-3">
+            <a href="/login">Already have an account? Login here</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Email validation regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      // Password validation regex: at least 6 characters, 1 number, 1 special character
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/;
+
+      let isUsernameValid = false;
+      let isPasswordValid = false;
+      let isConfirmPasswordValid = false;
+
+      // Username validation
+      $('#username').on('blur keyup', function() {
+        const username = $(this).val().trim();
+        const usernameError = $('#usernameError');
+        
+        if (username === '') {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          usernameError.text('Username is required');
+          isUsernameValid = false;
+        } else if (!emailRegex.test(username)) {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          usernameError.text('Please enter a valid email address');
+          isUsernameValid = false;
+        } else {
+          $(this).removeClass('is-invalid').addClass('is-valid');
+          usernameError.text('');
+          isUsernameValid = true;
+        }
+      });
+
+      // Password validation
+      $('#password').on('blur keyup', function() {
+        const password = $(this).val();
+        const passwordError = $('#passwordError');
+        
+        if (password === '') {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          passwordError.text('Password is required');
+          isPasswordValid = false;
+        } else if (password.length < 6) {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          passwordError.text('Password must be at least 6 characters long');
+          isPasswordValid = false;
+        } else if (!/[0-9]/.test(password)) {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          passwordError.text('Password must contain at least 1 number');
+          isPasswordValid = false;
+        } else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          passwordError.text('Password must contain at least 1 special character');
+          isPasswordValid = false;
+        } else {
+          $(this).removeClass('is-invalid').addClass('is-valid');
+          passwordError.text('');
+          isPasswordValid = true;
+        }
+        
+        // Revalidate confirm password when password changes
+        if ($('#confirmPassword').val() !== '') {
+          $('#confirmPassword').trigger('keyup');
+        }
+      });
+
+      // Confirm password validation
+      $('#confirmPassword').on('blur keyup', function() {
+        const confirmPassword = $(this).val();
+        const password = $('#password').val();
+        const confirmPasswordError = $('#confirmPasswordError');
+        
+        if (confirmPassword === '') {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          confirmPasswordError.text('Please confirm your password');
+          isConfirmPasswordValid = false;
+        } else if (confirmPassword !== password) {
+          $(this).removeClass('is-valid').addClass('is-invalid');
+          confirmPasswordError.text('Passwords do not match');
+          isConfirmPasswordValid = false;
+        } else {
+          $(this).removeClass('is-invalid').addClass('is-valid');
+          confirmPasswordError.text('');
+          isConfirmPasswordValid = true;
+        }
+      });
+
+      // Form submission validation
+      $('#registerForm').on('submit', function(e) {
+        // Trigger validation on all fields
+        $('#username').trigger('blur');
+        $('#password').trigger('blur');
+        $('#confirmPassword').trigger('blur');
+        
+        // Prevent form submission if any validation fails
+        if (!isUsernameValid || !isPasswordValid || !isConfirmPasswordValid) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lập trình ứng dụng Web - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link href="public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="public/js/jquery.min.js"></script>
+  <script src="public/js/app.js"></script>
+  <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Login</h2>
+        <div class="mb-3">
+          <form id="loginForm" class="form-login" method="POST" action="/login">
+        <div class="form-floating mb-3">
+          <input class="form-control" type="text" id="username" name="username" placeholder="name@example.com">
+          <label class="form-label" for="username">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input class="form-control" type="password" id="password" name="password" placeholder="Password">
+          <label class="form-label" for="password">Password</label>
+        </div>
+        <br>
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+          <div class="alert alert-danger" role="alert">
+            <p><%= errorMessage %></p>
+          </div>
+        <% } %>
+        <input class="btn btn-primary w-100" type="submit" value="Login">
+      </form>
+      <div class="text-center mt-3">
+        <a href="/register">Don't have an account? Register here</a>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
