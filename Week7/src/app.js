@@ -22,7 +22,7 @@ app.use(
     name: "app",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 5000 } /* 6000 ms? 6 seconds -> wut? :S */
+    cookie: { maxAge: 1000 * 60 * 60 } /* 1 hour */
   })
 );
 const checkLoggedIn = function(request, response, next) {
@@ -60,6 +60,7 @@ app.post('/login', async function(req, res) {
         console.log({ user });
         if (user && (user.username === username) && (user.password === password)) {
           req.session.loggedIn = true
+          req.session.username = username  // Store username in session
           res.redirect('/')
 
         } else {
@@ -144,6 +145,71 @@ app.post('/register', async function(req, res) {
   } catch(error) {
     console.error(error)
     res.render('register', { errorMessage: error.message })
+  }
+})
+
+// Logout route
+app.get('/logout', function(req, res) {
+  req.session.destroy(function(err) {
+    if (err) {
+      console.error(err)
+    }
+    res.redirect('/login')
+  })
+})
+
+// Change password routes
+app.get('/change-password', checkLoggedIn, function(req, res) {
+  res.render('change-password')
+})
+
+app.post('/change-password', checkLoggedIn, async function(req, res) {
+  const { currentPassword, newPassword, confirmPassword } = req.body
+  
+  try {
+    // Get current user from session
+    const username = req.session.username
+    if (!username) {
+      throw new Error('User not logged in')
+    }
+    
+    const user = await UserModel.findUserByUsername(username)
+    
+    // Verify current password
+    if (user.password !== currentPassword) {
+      throw new Error('Current password is incorrect')
+    }
+    
+    // Validate new password
+    if (!newPassword || newPassword === '') {
+      throw new Error('New password is required')
+    }
+    if (newPassword.length < 6) {
+      throw new Error('Password must be at least 6 characters long')
+    }
+    if (!/[0-9]/.test(newPassword)) {
+      throw new Error('Password must contain at least 1 number')
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPassword)) {
+      throw new Error('Password must contain at least 1 special character')
+    }
+    
+    // Validate confirm password
+    if (!confirmPassword || confirmPassword === '') {
+      throw new Error('Please confirm your new password')
+    }
+    if (newPassword !== confirmPassword) {
+      throw new Error('Passwords do not match')
+    }
+    
+    // Update password
+    await UserModel.updatePassword(username, newPassword)
+    
+    res.render('change-password', { successMessage: 'Password changed successfully!' })
+    
+  } catch(error) {
+    console.error(error)
+    res.render('change-password', { errorMessage: error.message })
   }
 })
 

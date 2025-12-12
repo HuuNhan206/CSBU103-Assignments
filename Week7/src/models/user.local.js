@@ -40,6 +40,15 @@ const UserModel = {
         })
         writeFile([...db])
     },
+    updatePassword(username, newPassword) {
+        const userIndex = db.findIndex(user => user.username === username)
+        if (userIndex !== -1) {
+            db[userIndex].password = newPassword
+            writeFile([...db])
+        } else {
+            throw new Error('User not found')
+        }
+    },
     delUser(id) {
         db = db.filter(user => user.id !== id)
         writeFile([...db])
